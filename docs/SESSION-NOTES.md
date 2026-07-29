@@ -16,11 +16,53 @@ Non-obvious facts that bite. True across sessions until the code itself changes.
 - **`from __future__ import annotations` is active in `infra_models.py`.** A naive static scan of a field's `metadata` will MISS its `AfterValidator` (annotations are stringized and/or nested under `Optional`). Verify field validation **behaviorally** — run `DocumentAdapter.validate_python` on a bad value — not by introspecting annotations. (This caused a false "fix-3 missed a field" alarm in review; behavioral testing cleared it.)
 - **conftest runs one closed-world unit per invocation.** `conftest test --combine` over BOTH manifests fails by design — they intentionally re-declare shared fixtures, so pooling creates duplicate composite keys. Run per-manifest. `python infra_models.py --merge` over both manifests fails for the same reason; that is expected, not a regression.
 - **Benign uv warning:** `VIRTUAL_ENV=/usr … will be ignored` prints on every `uv run` (this box exports `VIRTUAL_ENV` globally). uv correctly uses the project `.venv`. Not a failure.
+- **Frontmatter ID helper vs uv shim:** Project Standards 5.11.0's managed
+  `new-doc-id` helper invokes bare `python3`, which the workstation's uv-strict
+  shim rejects. Until upstream issue
+  [#97](https://github.com/L3DigitalNet/project-standards/issues/97) is fixed, run
+  only that helper with `PATH="/usr/bin:$PATH"`; do not edit the lock-owned script
+  or disable the shim globally.
 - **Drift gate scope boundaries** — a green gate does NOT mean these agree; they are deliberately out of scope: cross-field graph checks (owned by Pydantic stage-3 + OPA stage-4), explicit `null` on optional fields (JSON Schema rejects `field: null`; Pydantic accepts; real docs omit optionals), and IPv4-mapped IPv6 (`::ffff:…`, accepted by `ip_address()` but rejected by the hex-colon pattern).
 
 ---
 
 ## Session log
+
+### 2026-07-29 — Project Standards 5.11.0 fresh adoption
+
+**Outcome.** Initialized Catalog 5 and adopted exact
+`markdown-frontmatter@1.6`, scoped to the already-declared
+`docs/research/**/*.md` corpus. Reconciliation installed the managed authoring
+skill, ID helper, package summary, and `@v5` reusable validation caller. Added
+contract-1.1 metadata to the existing research report. No legacy Agent Handoff
+layer existed, and no schema, policy, example, Python-tooling, or custom
+session-continuity behavior changed.
+
+**Selection rationale.** Frontmatter was the only package backed by explicit
+repository intent. Python Tooling was not selected because this deliberately
+non-installable repo uses plain validation scripts and has no pytest suite.
+Markdown Tooling, ADR, Project Spec, CLI Documentation, and Agent Handoff were
+also left disabled rather than inventing new repository intent.
+
+**Release friction.** The first post-install version probe transiently failed
+inside Pydantic but a retry verified 5.11.0
+([#96](https://github.com/L3DigitalNet/project-standards/issues/96)). The managed
+Frontmatter 1.6 docs still link to v5.10.0; fresh-adoption evidence was added to
+[#53](https://github.com/L3DigitalNet/project-standards/issues/53). The exact-tag
+versioning policy still names 5.10.0; corroboration was added to
+[#85](https://github.com/L3DigitalNet/project-standards/issues/85). The managed ID
+helper is incompatible with the workstation uv shim; reported as
+[#97](https://github.com/L3DigitalNet/project-standards/issues/97) and worked
+around only for ID generation with `/usr/bin` first in `PATH`.
+
+**Verification.** The pre-adoption repository gate was green through stages
+1–4d. After adoption, `project-standards validate`,
+`format-frontmatter --check`, and `project-standards reconcile --check --json`
+all passed; the reconciliation JSON reported `ok: true`, `drift: false`, no
+findings, and only the understood create-only workflow `preserve` actions. The
+full repository gate also passed through isolated OpenTofu validation, which
+resolved bpg/proxmox 0.111.1 and prompted the moving tool-version references to
+be refreshed.
 
 ### 2026-06-03 — Schema↔Pydantic drift gate (Phase 1 #1 + #3)
 

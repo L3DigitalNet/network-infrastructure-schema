@@ -116,7 +116,7 @@ Toolchain (versions this baseline was validated against):
 | PyYAML               | 6.0.3           |
 | Conftest / OPA       | 0.56.0 / 0.69.0 |
 | OpenTofu             | 1.9.0           |
-| bpg/proxmox provider | 0.108.0         |
+| bpg/proxmox provider | 0.111.1         |
 | yamllint             | 1.38.0          |
 
 ### Layer 1 — YAML syntax/style
@@ -182,7 +182,7 @@ Generators consume the validated model and emit tool-specific artifacts. This ba
 | Target | Rules | Worked example | Validated with |
 | --- | --- | --- | --- |
 | NetBox seed/import | `mappings/netbox-mapping-guide.md` | payloads inline in guide | review against NetBox 4.x REST docs |
-| OpenTofu (Proxmox) | `generators/proxmox-opentofu-mapping-guide.md` | `examples/opentofu/proxmox-example.tf` | `tofu init/validate` (bpg 0.108.0) |
+| OpenTofu (Proxmox) | `generators/proxmox-opentofu-mapping-guide.md` | `examples/opentofu/proxmox-example.tf` | `tofu init/validate` (bpg 0.111.1) |
 | Containerlab | `generators/containerlab-rules.md` | `examples/containerlab/generated-topology.clab.yaml` | `yamllint` (deploy needs Docker) |
 | Ansible | (described in `ci/pipeline.md` stage 5/8) | — | `ansible-lint` (described) |
 | Batfish | (described in `ci/pipeline.md` stage 9) | — | snapshot question pack (described) |
@@ -212,7 +212,7 @@ Green with real tools in this environment:
 - Pydantic `--check` — all per-kind and both manifests pass; `--merge` correctly flags cross-manifest duplicate keys.
 - `conftest verify` — 15/15 unit tests pass.
 - `conftest test --combine` per manifest — 9/9 deny rules satisfied on each.
-- `tofu init && tofu validate` on the example HCL — success (provider 0.108.0).
+- `tofu init && tofu validate` on the example HCL — success (provider 0.111.1).
 
 Described but **not executed here** (require Docker, a NetBox/Proxmox endpoint, or device configs): Containerlab deploy, Batfish questions, Checkov, Trivy, ansible-lint, live NetBox seed, `tofu plan` against a real Proxmox API.
 

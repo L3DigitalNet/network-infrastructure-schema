@@ -1,3 +1,21 @@
+---
+schema_version: '1.1'
+id: 'research-g3szvl-ci-drift-gate-json-schema-draft-2020-12-vs-pydantic-v2-semantic-equivalence'
+title: 'CI Drift Gate: JSON Schema Draft 2020-12 vs Pydantic v2 Semantic Equivalence'
+description: 'Research supporting the repository schema-to-Pydantic drift gate design.'
+doc_type: 'research'
+status: 'active'
+created: '2026-06-02'
+updated: '2026-06-03'
+tags:
+  - 'python'
+  - 'research'
+  - 'schema'
+  - 'validation'
+aliases: []
+related: []
+---
+
 # CI Drift Gate: JSON Schema Draft 2020-12 vs Pydantic v2 Semantic Equivalence
 
 Mode: research  ·  Topic: CI drift gate for JSON Schema Draft 2020-12 vs Pydantic v2 model equivalence  ·  Saved: docs/research/2026-06-02-json-schema-pydantic-drift-gate.md

@@ -5,7 +5,7 @@ objects map to the [bpg/proxmox](https://search.opentofu.org/provider/bpg/proxmo
 OpenTofu provider, and where Proxmox/cloud-init specifics require adaptation.
 The companion artifact `examples/opentofu/proxmox-example.tf` is the rendered
 output for `lxc-pihole` and `vm-docker-apps`; it has been `tofu validate`-checked
-against bpg/proxmox **0.108.0**.
+against bpg/proxmox **0.111.1**.
 
 Legacy note: older guidance often references the **Telmate** provider. Use
 **bpg/proxmox**; Telmate is mentioned only as historical context and its

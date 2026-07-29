@@ -29,6 +29,11 @@ Rules of thumb:
 
 ### Added
 
+- **Project Standards Catalog 5 control plane** at release 5.11.0 with exact
+  `markdown-frontmatter@1.6` adoption. The governed corpus remains narrowly scoped to
+  `docs/research/**/*.md`; reconciliation installs the shared authoring skill and the
+  `@v5` reusable validation workflow without changing the schema, policies, examples,
+  or Python toolchain.
 - **Schema↔Pydantic drift gate** (`_build/check_drift.py`): a plain-script CI gate (exit 0/1, no pytest) that fails when `schemas/infra.schema.json` (normative) and `python/infra_models.py` (Pydantic) would accept or reject different documents. Three components: **C1** — all 21 valid documents (`examples/kinds/` + `examples/manifests/`) must receive the same pass verdict from both validators; **C2** — an invalid corpus under `examples/invalid/structural/` must be rejected by both, and `examples/invalid/graph/` documents must be rejected by the Pydantic graph layer; **C4** — kind-set, required-field, and closedness parity. Run: `uv run python _build/check_drift.py`. The JSON Schema validator runs with no `format_checker` (format is annotation-only repo-wide). Closes roadmap §6 Phase 1 #1.
 - **Negative-example corpus** (`examples/invalid/{structural,graph}/`): committed set of intentionally invalid documents exercised by the drift gate as regression tests. Closes roadmap §6 Phase 1 #3 (folded into the drift gate work).
 

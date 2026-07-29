@@ -1,0 +1,112 @@
+[project_standards]
+schema_version = "1.1"
+catalog = "5"
+release = "5.11.0"
+catalog_digest = "sha256:492b1cc8a18b5e14974282bd8a797f27595398c27ad983a0934bdfc4562876e9"
+config_digest = "sha256:8cf494abf4aedf862153820b3acfe48e316a469038b8cd9e6613b8546adb927b"
+
+[standards.markdown-frontmatter]
+requested = "1.6"
+resolved = "1.6"
+selection = "exact"
+payload_digest = "sha256:cf1e2c975d5f139f1b3864090e6fcc0e45dcb895a97dd07113c0eeb7af0d0f32"
+effective_config_digest = "sha256:cc3f1cf0c5ab9fbfd2cf928ec10d00999ea91b8e1535dc487ff39f2d0fcd63d2"
+
+[[artifacts]]
+path = ".agents/skills/markdown-frontmatter/SKILL.md"
+adapter = "whole-file"
+scope = "$file"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "managed"
+semantic_digest = "sha256:e29884350f5cd6a3e82be77ec104d58bfa3d5dac625b1eab74fc1d5b42b73796"
+content_digest = "sha256:e29884350f5cd6a3e82be77ec104d58bfa3d5dac625b1eab74fc1d5b42b73796"
+created_container = true
+
+[[artifacts]]
+path = ".agents/skills/markdown-frontmatter/agents/openai.yaml"
+adapter = "whole-file"
+scope = "$file"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "managed"
+semantic_digest = "sha256:d63c2c63683e78fa9adb10e7004fe9315b18a069240c4457e39cdc167951716c"
+content_digest = "sha256:d63c2c63683e78fa9adb10e7004fe9315b18a069240c4457e39cdc167951716c"
+created_container = true
+
+[[artifacts]]
+path = ".agents/skills/markdown-frontmatter/scripts/new-doc-id"
+adapter = "whole-file"
+scope = "$file"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "managed"
+semantic_digest = "sha256:cd35b1bcbd0630e18c9560aa40e579555204918f26b73c9da7ae3f0d48958f95"
+content_digest = "sha256:cd35b1bcbd0630e18c9560aa40e579555204918f26b73c9da7ae3f0d48958f95"
+mode = "0755"
+created_container = true
+
+[[artifacts]]
+path = ".github/workflows/validate-standards.yml"
+adapter = "yaml"
+scope = "key:/jobs/frontmatter"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "provider"
+policy = "managed"
+semantic_digest = "sha256:a5c3a5855628d6abd49e63a25a3c6171a94a0f5e5c62ab2a48ea1db4aeeb2013"
+content_digest = "sha256:cfef8ede8d4e4a0651298b76f9e8fb7fe664f2377f820ab7cff7037b3e253229"
+created_container = true
+
+[[artifacts]]
+path = ".github/workflows/validate-standards.yml"
+adapter = "yaml"
+scope = "key:/name"
+owners = ["markdown-frontmatter"]
+shared_identity = "github-workflow/validate-standards-name"
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "create-only"
+semantic_digest = "sha256:5a736be1ee4a3bcf1f3e0b23b0fec3236f10f0c5b44348e262a810f92f9b4049"
+content_digest = "sha256:e06566e640d664c6a013bc67788d841bea04a25b7051c03d87e632ee677f8763"
+created_container = true
+
+[[artifacts]]
+path = ".github/workflows/validate-standards.yml"
+adapter = "yaml"
+scope = "key:/on"
+owners = ["markdown-frontmatter"]
+shared_identity = "github-workflow/validate-standards-triggers"
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "create-only"
+semantic_digest = "sha256:b42fe6c9ee28a0e9efdd70c9506fa49cd94d21d7343b0d3a580ca518ba0f72df"
+content_digest = "sha256:c1319f03244da0d90b471329d0d202beb0eb6ba03eba360924b4419c7c458d99"
+created_container = true
+
+[[artifacts]]
+path = ".github/workflows/validate-standards.yml"
+adapter = "yaml"
+scope = "key:/permissions"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "managed"
+semantic_digest = "sha256:d8d6aceb1abc41990618a503082c3badcca8897feee0976f222af5b74e30bec2"
+content_digest = "sha256:248e857abefa9bcd48e29bf205c0ba2260ad4c167937fe37b5506afec6569d6c"
+created_container = true
+
+[[artifacts]]
+path = ".standards/packages/markdown-frontmatter/agent-summary.md"
+adapter = "whole-file"
+scope = "$file"
+owners = ["markdown-frontmatter"]
+versions = { markdown-frontmatter = "1.6" }
+provenance = "source"
+policy = "managed"
+semantic_digest = "sha256:290c3a95bdf6cdeaa74a959fe7c6086cc558329705ed463371ab9a4e2c4ce93c"
+content_digest = "sha256:290c3a95bdf6cdeaa74a959fe7c6086cc558329705ed463371ab9a4e2c4ce93c"
+created_container = true
