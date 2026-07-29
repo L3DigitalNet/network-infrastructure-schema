@@ -24,7 +24,7 @@ terraform {
       source = "bpg/proxmox"
       # Pin to the minor you have tested. Verify the current version against
       # https://search.opentofu.org/provider/bpg/proxmox/latest before bumping.
-      # This file was `tofu validate`-checked against bpg/proxmox 0.108.0.
+      # This file was `tofu validate`-checked against bpg/proxmox 0.111.1.
       version = "~> 0.66"
     }
   }

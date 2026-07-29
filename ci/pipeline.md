@@ -158,7 +158,7 @@ the generator regressed.
 This repo's own guardrails (Stage 4) cover the *intent* layer; Checkov/Trivy
 cover the *generated* layer. They are complementary, not redundant.
 
-## Stage 7 — OpenTofu **[verified: tofu 1.9.0 + bpg/proxmox 0.108.0 for `validate`]**
+## Stage 7 — OpenTofu **[verified: tofu 1.9.0 + bpg/proxmox 0.111.1 for `validate`]**
 
 ```bash
 cd out/opentofu

@@ -5,6 +5,8 @@ Status record for the L3D desired-state infrastructure schema pack (`infra.lumin
 - Built as `infra-schema` in the build environment at `/home/claude/infra-schema/`; now lives in this repo at `/home/chris/projects/network-infrastructure-schema/`.
 - Delivered outputs (build environment): `/mnt/user-data/outputs/` (+ `infra-schema-v0.1.0.zip`)
 - Build session date: 2026-06-02
+- Repository standards: Project Standards 5.11.0, Catalog 5, exact
+  `markdown-frontmatter@1.6` over `docs/research/**/*.md`.
 
 ---
 
@@ -29,7 +31,7 @@ All items below were **built as real files and validated with real tools** in th
 | Conftest config + policy catalog | `policies/conftest/{conftest.toml,README.md}` | used by conftest runs | DONE |
 | NetBox mapping guide (two-pass seed, bulk POST, payloads, 4.x quirks) | `mappings/netbox-mapping-guide.md` | reviewed vs NetBox 4.x REST docs | DONE |
 | OpenTofu mapping guide (VM/LXC asymmetries, cloud-init/secret adaptation) | `generators/proxmox-opentofu-mapping-guide.md` | reviewed vs bpg/proxmox docs | DONE |
-| OpenTofu worked example (1 VM + 1 LXC, secrets as sensitive vars) | `examples/opentofu/proxmox-example.tf` | `tofu` 1.9.0 `init`+`validate` (bpg/proxmox 0.108.0) → SUCCESS | DONE |
+| OpenTofu worked example (1 VM + 1 LXC, secrets as sensitive vars) | `examples/opentofu/proxmox-example.tf` | `tofu` 1.9.0 `init`+`validate` (bpg/proxmox 0.111.1) → SUCCESS | DONE |
 | Containerlab rules (kind selection, OPNsense→linux/FRR adaptation, addressing) | `generators/containerlab-rules.md` | reviewed vs containerlab.dev | DONE |
 | Containerlab worked example (router-on-a-stick home projection) | `examples/containerlab/generated-topology.clab.yaml` | `yamllint` strict (deploy needs Docker) | DONE |
 | Checkov / Trivy guidance (scan generated artifacts, not the model) | folded into `ci/pipeline.md` stage 6 | n/a (guidance) | DONE |
@@ -145,15 +147,30 @@ conftest test --combine -p policies/opa examples/manifests/site-home.yaml       
 conftest test --combine -p policies/opa examples/manifests/multi-site-failover.yaml          # 4c  (pooling both = dup composite keys)
 uv run python _build/check_drift.py                                                          # 4d  drift gate: schema↔Pydantic structural parity (C1/C2/C4)
 T=$(mktemp -d) && cp examples/opentofu/*.tf "$T" && ( cd "$T" && tofu init && tofu validate )  # 5  OpenTofu (copy out so init never writes .terraform/ into the generated-artifacts dir)
+project-standards validate                                                                   # 6a managed research frontmatter
+format-frontmatter --check                                                                   # 6b canonical frontmatter formatting
+project-standards reconcile --check --json                                                   # 6c Catalog 5 managed-state fixed point
 ```
 
-Toolchain validated against (now **pinned & committed** — Python tools in `pyproject.toml`/`uv.lock`, CLIs in `.mise.toml`, interpreter in `.python-version`; see §8): Python 3.12 / pydantic 2.13.4, jsonschema 4.26.0, PyYAML 6.0.3, conftest 0.56.0 (OPA 0.69.0), OpenTofu 1.9.0 (bpg/proxmox 0.108.0), yamllint 1.38.0.
+Toolchain validated against (now **pinned & committed** — Python tools in `pyproject.toml`/`uv.lock`, CLIs in `.mise.toml`, interpreter in `.python-version`; see §8): Python 3.12 / pydantic 2.13.4, jsonschema 4.26.0, PyYAML 6.0.3, conftest 0.56.0 (OPA 0.69.0), OpenTofu 1.9.0 (bpg/proxmox 0.111.1), yamllint 1.38.0.
 
 ---
 
 ## 8. Post-build change log
 
 Append-only record of changes made to the pack _after_ the original build session (§2). Newest first. Schema/policy/example contracts are untouched unless an entry says so.
+
+### 2026-07-29 — Project Standards Catalog 5 adoption
+
+Adopted Project Standards 5.11.0 as a fresh Catalog 5 consumer with exact
+`markdown-frontmatter@1.6`. The package retains the repository's declared
+`docs/research/**/*.md` scope, installs its managed authoring skill and shared
+`@v5` validation caller, and leaves the schema, policies, examples, Python tooling,
+and custom session-notes convention unchanged. The existing research report now
+has contract-1.1 frontmatter. Package validation, formatter validation, and the
+second reconciliation fixed point are clean. The full repository gate was rerun;
+isolated OpenTofu initialization resolved bpg/proxmox 0.111.1 and validated the
+example successfully, so moving validation-version references were refreshed.
 
 ### 2026-06-03 — Drift gate + D6 conformance fixes; Phase 1 #1 done, #3 folded
 
