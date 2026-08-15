@@ -4,7 +4,7 @@ catalog = "5"
 
 [standards.markdown-frontmatter]
 enabled = true
-version = "1.6"
+version = "latest"
 
 [standards.markdown-frontmatter.config]
 contract_version = "1.1"

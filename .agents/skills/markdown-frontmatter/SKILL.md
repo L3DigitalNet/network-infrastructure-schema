@@ -12,7 +12,7 @@ metadata:
 
 ## Overview
 
-Author and fix YAML frontmatter for **managed Markdown documents** under the [project-standards Markdown Frontmatter Standard](https://github.com/L3DigitalNet/project-standards/blob/v5.10.0/standards/markdown-frontmatter/versions/1.6/README.md).
+Author and fix YAML frontmatter for **managed Markdown documents** under the [project-standards Markdown Frontmatter Standard](https://github.com/L3DigitalNet/project-standards/blob/v5.19.0/standards/markdown-frontmatter/versions/1.11/README.md).
 
 This skill ships with the standard package and is installed repo-local at `.agents/skills/markdown-frontmatter` when a repository adopts the standard. That path is deliberate: both Claude Code and Codex CLI can discover it without a global skill owner.
 
@@ -83,7 +83,7 @@ These fields accept only these values (the schema is the source of truth):
 
 ## The `id` field — standard-enforced format
 
-> **This is a standard rule, not a local addition.** `markdown-frontmatter@1.6` enforces the id format below via `validate-id` (run by `project-standards validate` and the V5 CI workflow). An id whose leading segment is not a valid `doc_type` **fails validation** with `prefix '<x>' is not a valid doc_type`. Earlier repo-name-prefixed ids no longer pass.
+> **This is a standard rule, not a local addition.** `markdown-frontmatter@1.11` enforces the id format below via `validate-id` (run by `project-standards validate` and the V5 CI workflow). An id whose leading segment is not a valid `doc_type` **fails validation** with `prefix '<x>' is not a valid doc_type`. Earlier repo-name-prefixed ids no longer pass.
 
 ```text
 {doc_type}-{base36-6}-{document-name}
@@ -169,8 +169,8 @@ To check or repair a single file's id: `validate-id <file>` (add `--fix` to rewr
 
 ## Authoritative references
 
-- [Standard README](https://github.com/L3DigitalNet/project-standards/blob/v5.10.0/standards/markdown-frontmatter/versions/1.6/README.md) — overview and adoption surface.
-- [Structure Requirements](https://github.com/L3DigitalNet/project-standards/blob/v5.10.0/standards/markdown-frontmatter/versions/1.6/structure.md) — hard fields, key order, scalar/list rules, IDs, and validation.
-- [Field Values](https://github.com/L3DigitalNet/project-standards/blob/v5.10.0/standards/markdown-frontmatter/versions/1.6/field-values.md) — lifecycle, ownership, canonical tags, aliases, relationships, sources, and extensions.
-- [Adoption guide](https://github.com/L3DigitalNet/project-standards/blob/v5.10.0/standards/markdown-frontmatter/versions/1.6/adopt.md) — unified config, CI workflow, repo-local skill install, and compliance procedure.
-- `standards/markdown-frontmatter/versions/1.6/schemas/markdown-frontmatter.schema.json` (in project-standards) — the selected package contract; wins on any conflict.
+- [Standard README](https://github.com/L3DigitalNet/project-standards/blob/v5.19.0/standards/markdown-frontmatter/versions/1.11/README.md) — overview and adoption surface.
+- [Structure Requirements](https://github.com/L3DigitalNet/project-standards/blob/v5.19.0/standards/markdown-frontmatter/versions/1.11/structure.md) — hard fields, key order, scalar/list rules, IDs, and validation.
+- [Field Values](https://github.com/L3DigitalNet/project-standards/blob/v5.19.0/standards/markdown-frontmatter/versions/1.11/field-values.md) — lifecycle, ownership, canonical tags, aliases, relationships, sources, and extensions.
+- [Adoption guide](https://github.com/L3DigitalNet/project-standards/blob/v5.19.0/standards/markdown-frontmatter/versions/1.11/adopt.md) — unified config, CI workflow, repo-local skill install, and compliance procedure.
+- `standards/markdown-frontmatter/versions/1.11/schemas/markdown-frontmatter.schema.json` (in project-standards) — the selected package contract; wins on any conflict.

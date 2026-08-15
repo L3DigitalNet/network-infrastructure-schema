@@ -26,7 +26,24 @@
 # slugs are capped), with a stdlib fallback matching that algorithm. A trailing
 # .md is dropped before slugging. Exit codes: 0 ok; 2 usage error.
 #
-# Requirements: bash, coreutils, Python 3.
+# Requirements: bash, coreutils, and Python 3 - reached through uv when uv is
+# installed, otherwise directly.
+#
+# fix(#97): both embedded Python steps dispatch through $PYTHON_RUNNER rather
+# than calling `python3` directly. The uv-strict-python shims this project's own
+# guidance tells operators to install reject a bare `python3` invocation and exit
+# 1 before any code runs, so the managed helper - which the skill says is the
+# ONLY sanctioned id source - could not generate an id in an environment
+# configured the way the standards prescribe. Editing the installed copy is not
+# an escape: the file is lock-owned and reconciliation restores it.
+#
+# The dispatch is conditional, not an unconditional `uv run`, because this
+# package is adopted by repositories that are not Python projects at all: a hard
+# uv dependency would trade one broken environment for another (exit 127 where
+# only python3 exists). `--no-project` is what keeps the uv branch inert - a bare
+# `uv run` resolves and SYNCS the surrounding consumer project, so generating a
+# document id could mutate an unrelated virtualenv.
+#
 # ADR ids are NOT this format - they follow the standard's ADR form
 # adr-{NNNN}-{repo-name}-{title} (see SKILL.md); do not use this script for ADRs.
 
@@ -103,9 +120,16 @@ if ! valid_status "$STATUS"; then
   exit 2
 fi
 
+# Resolved once, after argument validation, so a usage error costs no probe.
+if command -v uv >/dev/null 2>&1; then
+  PYTHON_RUNNER=(uv run --no-project python3 -)
+else
+  PYTHON_RUNNER=(python3 -)
+fi
+
 SCRIPT_PATH="${BASH_SOURCE[0]}"
 slug="$(
-  NEW_DOC_ID_SCRIPT="$SCRIPT_PATH" DOC_NAME="$DOC_NAME" python3 - <<'PY'
+  NEW_DOC_ID_SCRIPT="$SCRIPT_PATH" DOC_NAME="$DOC_NAME" "${PYTHON_RUNNER[@]}" <<'PY'
 import os
 import re
 import sys
@@ -174,7 +198,7 @@ fi
 # numbers, [] for empty lists). Title = slug in Title Case as a starting
 # point; description is a placeholder the author must replace.
 title="$(
-  SLUG="$slug" python3 - <<'PY'
+  SLUG="$slug" "${PYTHON_RUNNER[@]}" <<'PY'
 import os
 
 print(os.environ["SLUG"].replace("-", " ").title())
